@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <div class="jumbotron mt-1">
+                  <form #ref="ngForm" (ngSubmit)="onSubmit(ref.value)">
+                    <div class="row">
+                            <div class="col-md-5 text-center">
+                                  <mat-form-field >
+                                    <mat-label>Choose the city</mat-label>
+                                    <mat-select required name="location" #n1="ngModel" ngModel>
+                                      <mat-option *ngFor="let city of cities" [value]="city">
+                                        {{city}}
+                                      </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="n1.errors?.required">Please choose one of the cities</mat-error>
+                                  </mat-form-field>
+                            </div>
+                            <div class="col-md-5 text-center">
+                                  <mat-form-field >
+                                    <mat-label>Choose the type of the Sport</mat-label>
+                                    <mat-select required name="sporttype" #n2="ngModel" ngModel>
+                                      <mat-option *ngFor="let sport of sports" [value]="sport">
+                                        {{sport}}
+                                      </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="n2.errors?.required">Please choose the type of the Sport!</mat-error>
+                                  </mat-form-field>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="text-center">
+                                <button [disabled]="ref.form.invalid"   mat-raised-button color="accent" >SEARCH</button>
+                              </div>
+                            </div>
+                    </div>
+                
+              </form>
+  </div>
+</div>          
+
+
+<h1  *ngIf="!isFetching" class="text-center text-primary">Finding Best venues in {{urlObj.location}}</h1>
+
+
+<!-- Adding Spinner -->
+<div class="text-center">
+  <div *ngIf="isFetching" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+
+
+
+<div class="container" *ngIf="!isFetching">
+  <div class="row mt-5">
+    <!-- if venue is empty -->
+    <div *ngIf="venues.length==0" class="text-center">
+        <img class="rounded" src="https://lh3.googleusercontent.com/QarLUX3XWbLirrkDDz7aOFEzNYY23hfMowCQcE6Bsu68xi1f58j_bSoc-0BtPONaC2zqdH4658L6VlASjZhZkb2_vrSEPpVfIa-vsBjfKN6Ydrasqnn_ugs9nnHmZDrwHQC9_u6nXA" alt="image">
+    </div>
+    <div class="col-md-4 mb-3" *ngFor="let venue of venues">
+            <mat-card>
+              <img mat-card-image [src]="venue.image1"   alt="Photo of the Ground">
+              <mat-card-header>
+                    <mat-card-title style="font-size:15px;">{{venue.name|uppercase}}</mat-card-title>
+                    <mat-card-subtitle>KONDAPUR</mat-card-subtitle> 
+                    
+              </mat-card-header>
+              <mat-card-content>
+                    <i style="color:darkcyan" *ngIf="venue.floodlight" class="fa fa-check-square-o ml-3" aria-hidden="true">FloodLight</i>
+                    <i style="color:darkcyan" *ngIf="venue.canteen" class="fa fa-check-square-o ml-3" aria-hidden="true">Canteen</i>
+                    <i style="color:darkcyan"  *ngIf="venue.umpire" class="fa fa-check-square-o ml-3" aria-hidden="true">Umpire</i>
+                    <i style="color:darkcyan" *ngIf="venue.sanitation" class="fa fa-check-square-o ml-3" aria-hidden="true">Sanitation</i>
+                    <i style="color:darkcyan" *ngIf="venue.playkit" class="fa fa-check-square-o ml-3" aria-hidden="true">Play Kit</i>
+                    <i style="color:darkcyan" *ngIf="venue.dressingroom" class="fa fa-check-square-o ml-3" aria-hidden="true">Dressing-Room</i>
+                    <label >rating:</label>
+                    
+              </mat-card-content>
+              <mat-card-actions class="text-center" >
+                <button mat-button style="color:white" (click)="doBooking(venue)">BOOK NOW</button>
+              </mat-card-actions>
+            </mat-card>
+      </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,9 @@
+mat-form-field{
+  min-width:100px;
+  max-width:300px;
+  width:100%;
+
+}
+span{
+  width:mx-auto;
+}

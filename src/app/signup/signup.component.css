@@ -1,0 +1,11 @@
+form{
+  width:mx-auto;
+}
+
+form span{
+  color:yellowgreen;
+  margin-left:2rem;
+  font-size:2rem;
+  border-bottom: 4px solid aqua;
+  
+}
